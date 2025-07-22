@@ -1,0 +1,6 @@
+body { font-family: "Helvetica Neue", sans-serif; margin:0; }
+.scene { width:100%; height:100vh; display:none; align-items:center; justify-content:center; flex-direction:column; }
+.scene.active { display:flex; }
+#chart { width:90%; height:80%; }
+line.country { fill:none; stroke-width:1.5px; opacity:0.8; }
+line.country.dimmed { opacity:0.1; }

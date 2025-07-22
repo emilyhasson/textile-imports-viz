@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Shifting Threads: U.S. Apparel Imports, 2025</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- D3 & d3‑annotation (only approved libs) -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3-annotation@2.5.1/dist/d3-annotation.min.js"></script>
+</head>
+<body>
+
+  <!-- Scene containers -->
+  <section id="scene0" class="scene active">
+    <h1>Shifting Threads</h1>
+    <h2>Where U.S. clothes came from in 2025</h2>
+    <button id="startBtn">Start</button>
+  </section>
+
+  <section id="scene1" class="scene">
+    <svg id="chart"></svg>
+    <!-- annotation group lives inside SVG; added in JS -->
+  </section>
+
+  <!-- optional Scene 2 (exploration UI) lives in same SVG; no extra section -->
+
+  <script src="js/main.js"></script>
+</body>
+</html>
