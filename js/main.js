@@ -180,14 +180,15 @@ function changeBarsScene(){
     .padding(0.15);
 
   const xAxis = g => g
-    .attr('transform', 'translate(0,${margin.top})')
+    .attr('transform', `translate(0,${margin.top})`)
     .call(d3.axisTop(x).tickFormat(d3.format('+.2s')))
     .call(g => g.select('.domain').remove());
-
+    
   const yAxis = g => g
-    .attr('transform', 'translate(${margin.left},0)')
-    .call(d3.axisLeft(y))
-    .call(g => g.select('.domain').remove());
+  .attr('transform', `translate(${margin.left},0)`)
+  .call(d3.axisLeft(y))
+  .call(g => g.select('.domain').remove());
+
 
   svg.append('g').attr('class','axis').call(xAxis);
   svg.append('g').attr('class','axis').call(yAxis);
