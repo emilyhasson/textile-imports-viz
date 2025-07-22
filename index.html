@@ -1,28 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Shifting Threads: U.S. Apparel Imports, 2025</title>
-  <link rel="stylesheet" href="css/style.css">
-  <!-- D3 & d3‑annotation (only approved libs) -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>US Apparel Imports — Rising & Declining Countries</title>
+  <link rel="stylesheet" href="css/style.css" />
   <script src="https://d3js.org/d3.v7.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/d3-annotation@2.5.1/dist/d3-annotation.min.js"></script>
+  <script src="https://unpkg.com/d3-annotation@2.5.1/dist/d3-annotation.min.js"></script>
 </head>
 <body>
+  <header>
+    <h1 id="title">Where Do America’s Clothes Come From?</h1>
+    <p id="subtitle">A short narrative showing which countries are rising or declining in US apparel imports.</p>
+  </header>
 
-  <!-- Scene containers -->
-  <section id="scene0" class="scene active">
-    <h1>Shifting Threads</h1>
-    <h2>Where U.S. clothes came from in 2025</h2>
-    <button id="startBtn">Start</button>
-  </section>
+  <main>
+    <!-- Controls (triggers) -->
+    <div id="controls">
+      <button id="prev">◀ Back</button>
+      <button id="next">Next ▶</button>
 
-  <section id="scene1" class="scene">
-    <svg id="chart"></svg>
-    <!-- annotation group lives inside SVG; added in JS -->
-  </section>
+      <div id="metric-controls" class="control-block">
+        <span>Metric:</span>
+        <label><input type="radio" name="metric" value="Quantity" checked> Quantity (SME)</label>
+        <label><input type="radio" name="metric" value="Value"> Value (USD)</label>
+      </div>
 
-  <!-- optional Scene 2 (exploration UI) lives in same SVG; no extra section -->
+      <div id="country-control" class="control-block hidden">
+        <label>Country:
+          <select id="countrySelect"></select>
+        </label>
+      </div>
+    </div>
+
+    <!-- Scene container -->
+    <div id="scene-text"></div>
+    <div id="vis"></div>
+  </main>
+
+  <div id="tooltip" class="tooltip hidden"></div>
+
+  <footer>
+    <p>Built with D3.js & d3-annotation. Data: US apparel imports (example CSV).</p>
+  </footer>
 
   <script src="js/main.js"></script>
 </body>
