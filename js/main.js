@@ -87,9 +87,15 @@ function drawLines() {
     .selectAll('path')
     .data(series)
     .enter().append('path')
-      .attr('class', 'country')
-      .attr('d', d => lineGen(d.values))
-      .attr('stroke', d => state.color(d.key));
+        .attr('class', 'country')
+        .attr('fill', 'none')              // <- force here
+        .attr('stroke', d => state.color(d.key))
+        .attr('stroke-width', 1.5)
+        .attr('d', d => lineGen(d.values));
+
+
+    
+
 }
 
 /*** REVEAL ANIMATION (one pass for all lines) ***/
