@@ -1,6 +1,5 @@
 /*
-  main.js — Minimal narrative viz to show rising/declining countries.
-  Structure: Interactive slideshow (martini-ish): 4 scenes.
+  main.js
   Scenes:
     0 Intro card
     1 Bar chart: % change (first vs last month) — highlights risers & decliners
@@ -20,6 +19,7 @@ const state = {
 };
 
 const scenes = [introScene, changeBarsScene, linesScene, exploreScene];
+
 // ---------------------- Trade Events (for annotations) ----------------------
 const tradeEvents = [
   { date: new Date(2005,0,1),  title: "ATC quotas end",           label: "Global textile quotas removed" },
