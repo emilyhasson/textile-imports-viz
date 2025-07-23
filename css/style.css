@@ -28,7 +28,25 @@ svg { width: 100%; height: 520px; overflow: visible; }
 .bar.decline { fill: var(--decline); }
 
 .annotation-group text { font-size: 12px; }
+.annotation-group.event-annotations path.subject {
+  stroke: #888;
+  stroke-dasharray: 3 3;
+}
+
 .annotation-note-title { font-weight: 600; }
+.event-line {
+  stroke: #888;
+  stroke-width: 1.5px;
+  stroke-dasharray: 3 3;
+}
+.event-hit {
+  fill: transparent;   /* or none */
+  stroke: none;
+  cursor: help;
+  pointer-events: all;
+}
+
+
 
 #scene-text { max-width: 780px; margin: 0 auto 0.5rem; font-size: 0.95rem; line-height: 1.35; color: #333; min-height: 3.5rem; }
 

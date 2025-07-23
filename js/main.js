@@ -20,6 +20,23 @@ const state = {
 };
 
 const scenes = [introScene, changeBarsScene, linesScene, exploreScene];
+// ---------------------- Trade Events (for annotations) ----------------------
+const tradeEvents = [
+  { date: new Date(2005,0,1),  title: "ATC quotas end",           label: "Global textile quotas removed" },
+  // CAFTA-DR rollout
+  { date: new Date(2006,2,1),  title: "CAFTA-DR Rollout",    label: "El Salvador enters CAFTA-DR" },
+  // Haiti preferences
+  { date: new Date(2006,11,20), title: "HOPE I (Haiti)",          label: "Duty-free apparel prefs begin" },
+  { date: new Date(2008,5,1),   title: "HOPE II (Haiti)",         label: "Prefs expanded" },
+  // Crisis / tariffs / sanctions
+  { date: new Date(2008,7,1),   title: "Trade collapse",          label: "'08–'09 import crash" },
+  { date: new Date(2018,8,24),  title: "China tariffs (List 3)",  label: "10% → 25% in May '19" },
+  { date: new Date(2020,2,21),  title: "COVID-19 Pandemic",          label: "Retail closes → import plunge" },
+  { date: new Date(2021,1,1),   title: "Myanmar coup",            label: "Sanctions disrupt sourcing" },
+  { date: new Date(2021, 9, 13), title: "LA/LB congestion", label: "Record backlog delays shipments" },
+  { date: new Date(2022,5,21),  title: "UFLPA enforced",          label: "Xinjiang goods presumed forced labor" }
+];
+
 
 // dims
 const margin = {top: 30, right: 20, bottom: 40, left: 60};
@@ -309,6 +326,9 @@ function linesScene(){
     const s = series.find(s => s.country === country);
     return s ? s.values[s.values.length-1] : null;
   };
+  // Add vertical trade-event markers
+  addEventAnnotations(svg, x, y);
+
   const annos = [];
   if(topR){
     const p = getLastPoint(topR);
@@ -369,6 +389,8 @@ function exploreScene(){
     .attr('fill', 'var(--accent)')
     .on('mousemove', (event, d) => showTooltip(event, `${fmtDate(d.date)}<br>${fmtNum(d[metric])}`))
     .on('mouseleave', hideTooltip);
+  // Add vertical trade-event markers
+  addEventAnnotations(svg, x, y);
 
   // simple title annotation
   addAnnotations(svg, [{
@@ -379,6 +401,44 @@ function exploreScene(){
     dx: 20, dy: -20
   }]);
 }
+
+function addEventAnnotations(svg, x, y){
+  const [x0, x1] = x.domain();
+  const events = tradeEvents.filter(e => e.date >= x0 && e.date <= x1);
+  if(!events.length) return;
+
+  const g = svg.append('g').attr('class','event-layer');
+
+  const ev = g.selectAll('g.ev')
+    .data(events)
+    .join('g')
+    .attr('class','ev')
+    .attr('transform', d => `translate(${x(d.date)},0)`);
+
+  // vertical line
+  ev.append('line')
+    .attr('class','event-line')     // <— use the CSS above
+    .attr('y1', margin.top)
+    .attr('y2', height - margin.bottom);
+
+  // invisible hitbox
+  ev.append('rect')
+    .attr('class','event-hit')
+    .attr('x', -6)
+    .attr('width', 12)
+    .attr('y', margin.top)
+    .attr('height', height - margin.top - margin.bottom)
+    .on('mousemove', (e,d) =>
+      showTooltip(e, `<strong>${d.title}</strong><br>${d.label}<br>${fmtDate(d.date)}`))
+    .on('mouseleave', hideTooltip);
+
+  // optional dot
+  ev.append('circle')
+    .attr('cy', margin.top)
+    .attr('r', 3)
+    .attr('fill', '#888');
+}
+
 
 // ---------------------- Helpers ---------------------------
 function setupSVG(){
